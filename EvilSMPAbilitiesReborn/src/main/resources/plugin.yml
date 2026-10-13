@@ -1,0 +1,13 @@
+name: EvilSMPAbilitiesReborn
+version: '2.0.0'
+main: com.evilsmp.reborn.RebornPlugin
+api-version: '1.21'
+description: Custom Evil SMP combat items
+commands:
+  evilsmpitems:
+    description: Give custom ability items
+    usage: /evilsmpitems give <player> <tickle|nullifier|armourbreaker|restrictor>
+    permission: evilsmpabilities.admin
+permissions:
+  evilsmpabilities.admin:
+    default: op
