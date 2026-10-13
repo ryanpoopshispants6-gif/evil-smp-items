@@ -17,11 +17,20 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Build JAR
-        run: mvn --batch-mode clean package
+      - name: Find and Build Plugin
+        shell: bash
+        run: |
+          POM=$(find . -name pom.xml -not -path "*/target/*" -print -quit)
+          if [ -z "$POM" ]; then
+            echo "ERROR: No pom.xml found!"
+            exit 1
+          fi
+          echo "Found Maven project: $POM"
+          mvn -f "$POM" --batch-mode clean package
 
       - name: Upload Plugin JAR
         uses: actions/upload-artifact@v4
         with:
           name: EvilSMPAbilitiesReborn-jar
-          path: target/EvilSMPAbilitiesReborn.jar
+          path: '**/target/*.jar'
+          if-no-files-found: error
